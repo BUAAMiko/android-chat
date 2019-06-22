@@ -1,1 +1,1 @@
-include ':app', ':fileSystem-debug'
+include ':app', ':fileSystem-debug', ':momento-release', ':wzcsmack'
