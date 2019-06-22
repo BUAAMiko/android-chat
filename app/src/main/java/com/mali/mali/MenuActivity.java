@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import shisong.FactoryBuilder;
+
 public class MenuActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -48,6 +50,7 @@ public class MenuActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        FactoryBuilder.getInstance(false).initFileSystem();
     }
 
 }

@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import shisong.FactoryBuilder;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
@@ -14,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.textViewSignup).setOnClickListener(this);
         findViewById(R.id.textViewLogin).setOnClickListener(this);
+        FactoryBuilder.getInstance(true);
     }
 
     @Override
