@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import buaa.jj.designpattern.factory.FileSystemFactory;
+//import buaa.jj.designpattern.factory.FileSystemFactory;
 import shisong.FactoryBuilder;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
@@ -75,7 +75,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             case R.id.buttonLogin:
                 userLogin();
-                FileSystemFactory.userId = editTextEmail.getText().toString().trim();
+//                FileSystemFactory.userId = editTextEmail.getText().toString().trim();
                 startActivity(new Intent(this, MenuActivity.class));
                 break;
         }

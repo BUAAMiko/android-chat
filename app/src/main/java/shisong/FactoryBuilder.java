@@ -2,7 +2,7 @@ package shisong;
 
 import android.os.Environment;
 
-import buaa.jj.designpattern.factory.FileSystemFactory;
+//import buaa.jj.designpattern.factory.FileSystemFactory;
 import communicate.XMPPSession;
 import communicate.XMPPSessionFactory;
 import communicate.XMPPSessionFactoryBuilder;
@@ -11,7 +11,7 @@ import communicate.configuration.ConstantConfig;
 public class FactoryBuilder {
 
     private static FactoryBuilder factoryBuilder;
-    private FileSystemFactory fileSystemFactory;
+//    private FileSystemFactory fileSystemFactory;
     private XMPPSession session;
 
     private FactoryBuilder() {
@@ -28,18 +28,18 @@ public class FactoryBuilder {
     public XMPPSession getSession() {
         return session;
     }
-    public FileSystemFactory getFileSystemFactory() {
-        return fileSystemFactory;
-    }
+//    public FileSystemFactory getFileSystemFactory() {
+//        return fileSystemFactory;
+//    }
 
-    private void initSession() {
+    public void initSession() {
         XMPPSessionFactory factory = new XMPPSessionFactoryBuilder().build();
         session = factory.openSession();
         ConstantConfig.FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/chat/";
     }
 
-    public void initFileSystem() {
-        fileSystemFactory = new FileSystemFactory();
-        fileSystemFactory.getFileSystem(true);
-    }
+//    public void initFileSystem() {
+//        fileSystemFactory = new FileSystemFactory();
+//        fileSystemFactory.getFileSystem(true);
+//    }
 }
