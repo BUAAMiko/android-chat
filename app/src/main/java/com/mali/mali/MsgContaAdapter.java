@@ -1,55 +1,94 @@
 package com.mali.mali;
 
-import android.app.Activity;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
+import java.util.ArrayList;
 
-import java.util.List;
+public class MsgContaAdapter extends RecyclerView.Adapter {
 
-public class MsgContaAdapter extends ArrayAdapter<Contact> {
-    private Activity activity;
-    private List<Contact> taskList;
+    private Context context;
+    private ArrayList<MsgConBean> data;
+    private static final int TYPEONE = 1;
+    private static final int TYPETWO = 2;
 
-    public MsgContaAdapter(Activity a, List<Contact> taskList) {
-        super(a, R.layout.contact_list, taskList);
-        this.activity = a;
-        this.taskList=taskList;
+    public MsgContaAdapter(Context context) {
+        this.context = context;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ListTaskViewHolder holder = null;
-        if (convertView == null) {
-            holder = new ListTaskViewHolder();
-            convertView = LayoutInflater.from(activity).inflate(
-                    R.layout.contact_list, parent, false);
-            holder.task_name = (TextView) convertView.findViewById(R.id.task_name);
-            //holder.task_time = (TextView) convertView.findViewById(R.id.task_time);
-            holder.share_task = (ImageView) convertView.findViewById(R.id.task_headImg);
-            convertView.setTag(holder);
-        } else {
-            holder = (ListTaskViewHolder) convertView.getTag();
+    public void setData(ArrayList<MsgConBean> data) {
+        this.data = data;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return data.get(position).getNumber();
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        RecyclerView.ViewHolder holder = null;
+        switch (viewType){
+            case TYPEONE:
+                View view = LayoutInflater.from(context).inflate(R.layout.item_left,parent,false);
+                holder = new OneViewHolder(view);
+                break;
+            case TYPETWO:
+                View view1 = LayoutInflater.from(context).inflate(R.layout.item_right,parent,false);
+                holder = new TwoViewHolder(view1);
+                break;
         }
-
-        holder.task_name.setId(position);
-        //holder.task_time.setId(position);
-        holder.share_task.setId(position);
-
-        final Contact task = taskList.get(position);
-
-        try{
-            holder.task_name.setText(task.getName());
-            //holder.task_time.setText(task.getPhoneNum());
-
-        }catch(Exception e) {}
-        return convertView;
+        return holder;
     }
-}
 
-class MsgContaViewHolder {
-    TextView task_name;
-    ImageView share_task;
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        int itemViewType = getItemViewType(position);
+        switch (itemViewType){
+            case TYPEONE:
+                OneViewHolder oneViewHolder = (OneViewHolder) holder;
+                oneViewHolder.tv1.setText(data.get(position).getData());
+                oneViewHolder.name1.setText(data.get(position).getName());
+                oneViewHolder.time1.setText(data.get(position).getTime());
+                break;
+            case TYPETWO:
+                TwoViewHolder twoViewHolder = (TwoViewHolder) holder;
+                twoViewHolder.tv2.setText(data.get(position).getData());
+                twoViewHolder.name2.setText(data.get(position).getName());
+                twoViewHolder.time2.setText(data.get(position).getTime());
+                break;
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return  data != null && data.size() > 0 ? data.size() : 0;
+    }
+
+    class OneViewHolder extends RecyclerView.ViewHolder{
+        private TextView tv1;
+        private TextView name1,time1;
+        public OneViewHolder(View itemView) {
+            super(itemView);
+            tv1 = (TextView) itemView.findViewById(R.id.tv);
+            name1 = (TextView) itemView.findViewById(R.id.tv_name);
+            time1 = (TextView) itemView.findViewById(R.id.tv_time);
+        }
+    }
+
+    class TwoViewHolder extends RecyclerView.ViewHolder{
+        private TextView tv2;
+        private TextView name2,time2;
+        public TwoViewHolder(View itemView) {
+            super(itemView);
+            tv2 = (TextView) itemView.findViewById(R.id.tv2);
+            name2 = (TextView) itemView.findViewById(R.id.tv_name2);
+            time2 = (TextView) itemView.findViewById(R.id.tv_time2);
+        }
+    }
+
 }
