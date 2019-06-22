@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:title="Chat"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/navigation_contact"
+        android:icon="@android:drawable/btn_star_big_off"
+        android:title="Contact"
+        app:showAsAction="always|withText" />
+
+    <!--item
+        android:id="@+id/navigation_file"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="File"
+        app:showAsAction="always|withText" /-->
+
+    <item
+        android:id="@+id/navigation_logout"
+        android:icon="@android:drawable/ic_input_delete"
+        android:title="Logout"
+        app:showAsAction="always|withText" />
+
+</menu>

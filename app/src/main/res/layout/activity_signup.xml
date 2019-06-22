@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignupActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="25dp">
+
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/editTextEmail2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:fontFamily="sans-serif"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="30dp"
+                    android:paddingBottom="10dp" />
+
+                <EditText
+                    android:id="@+id/editTextPassword2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:paddingLeft="30dp"
+                    android:paddingBottom="10dp" />
+
+                <Button
+                    android:id="@+id/buttonLogin2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="SignUp"
+                    android:paddingBottom="5dp"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="-10dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </android.support.design.widget.CoordinatorLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>

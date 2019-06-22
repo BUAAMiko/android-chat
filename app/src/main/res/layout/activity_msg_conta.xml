@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MsgContaActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_msg_conta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/TitleofMsgConta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="聊天页"
+                android:textAlignment="center"
+                app:fontFamily="casual"
+                android:textSize="25dp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/msgContaFile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="0dp"
+                android:background="?android:attr/actionModePasteDrawable"
+                android:paddingBottom="5dp"
+                android:textAllCaps="false"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingTop="10dip"
+            android:paddingBottom="15dip"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:id="@+id/centerContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:visibility="visible">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <EditText
+                        android:id="@+id/editMsgContact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/background_light"
+                        android:ems="10"
+                        android:fontFamily="sans-serif"
+                        android:inputType="text"
+                        android:paddingLeft="30dp"
+                        android:paddingBottom="10dp" />
+
+                    <Button
+                        android:id="@+id/buttonSendMsg"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="0dp"
+                        android:paddingBottom="5dp"
+                        android:text="Send"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/buttonSendFile"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="File"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

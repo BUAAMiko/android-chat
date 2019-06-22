@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:orientation="horizontal"
+        android:paddingTop="10dip"
+        android:paddingBottom="15dip">
+
+        <LinearLayout
+            android:id="@+id/centerContent"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:paddingLeft="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/task_fileImg"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@mipmap/ic_launcher"
+                    android:gravity="center_vertical|start" />
+                <TextView
+                    android:id="@+id/task_name3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="0dp"
+                    android:text="Task Name here"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

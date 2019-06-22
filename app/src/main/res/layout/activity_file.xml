@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".FileActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+
+            app:toolbarId="@+id/toolbar">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" >
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="0dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <EditText
+                            android:id="@+id/editsearchFile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/background_light"
+                            android:ems="10"
+                            android:fontFamily="sans-serif"
+                            android:inputType="text"
+                            android:paddingLeft="30dp"
+                            android:paddingBottom="10dp" />
+
+                        <Button
+                            android:id="@+id/searchFile"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="0dp"
+                            android:background="@android:drawable/ic_search_category_default"
+                            android:paddingBottom="5dp"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="0dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <Button
+                            android:id="@+id/picture"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="0dp"
+                            android:paddingBottom="5dp"
+                            android:text="Pic"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/document"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:text="Doc"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/video"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="0dp"
+                            android:paddingBottom="5dp"
+                            android:text="A&amp;V"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/others"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:text="Other"
+                            android:textAllCaps="false"
+                            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/file_file" />
+
+</android.support.design.widget.CoordinatorLayout>
