@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 import java.io.IOException;
@@ -21,12 +22,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Observers.InfoViewObserver;
+
 public class MsgContaActivity extends AppCompatActivity {
 
     private RecyclerView rv;
+    private TextView titleView;
     private EditText et;
+    private String Contactname;
     private Button btn,btn2,btn3;
-    private Socket socket;
     private ArrayList<MsgConBean> list;
     private MsgContaAdapter adapter;
 
@@ -34,7 +38,10 @@ public class MsgContaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_msg_conta);
-
+        Intent intent=getIntent();
+        Contactname=intent.getStringExtra("ContactIname");
+        titleView=findViewById(R.id.TitleofMsgConta);
+        titleView.setText(Contactname);
         rv = (RecyclerView) findViewById(R.id.rv);
         et = (EditText) findViewById(R.id.editMsgContact);
         btn = (Button) findViewById(R.id.buttonSendMsg);
@@ -43,10 +50,22 @@ public class MsgContaActivity extends AppCompatActivity {
         list = new ArrayList<>();
         adapter = new MsgContaAdapter(this);
 
+        final Handler handler = new MyHandler();
+
+        String data= "测试消息"+(new Date().toString());
+        Message message = Message.obtain();
+        message.what = 1;
+        message.obj = data;
+        //handler.sendMessage(message);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                final String data = et.getText().toString() + (new Date().toString());
+                Message message = Message.obtain();
+                message.what = 1;
+                message.obj = data;
+                handler.sendMessage(message);
             }
         });
 
@@ -67,7 +86,34 @@ public class MsgContaActivity extends AppCompatActivity {
 
     }
 
-    private class MyHandler extends Handler {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        InfoViewObserver.setIsChat(true);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        InfoViewObserver.setIsChat(false);
+    }
+
+    private class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+
+                SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+                MsgConBean bean = new MsgConBean(msg.obj.toString(), 1, df.format(new Date()), "我：");
+                list.add(bean);
+
+                // 向适配器set数据
+                adapter.setData(list);
+                rv.setAdapter(adapter);
+                LinearLayoutManager manager = new LinearLayoutManager(MsgContaActivity.this, LinearLayoutManager.VERTICAL, false);
+                rv.setLayoutManager(manager);
+            }
+        }
     }
 }
