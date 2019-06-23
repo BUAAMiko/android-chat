@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -20,8 +21,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class ContactActivity extends Fragment {
+import buaa.jj.designpattern.factory.FileSystemFactory;
+import communicate.XMPPSession;
+import shisong.FactoryBuilder;
+
+public class ContactActivity extends Fragment implements View.OnClickListener {
 
     ImageView imageView;
 
@@ -33,6 +39,7 @@ public class ContactActivity extends Fragment {
     NestedScrollView scrollView;
     ProgressBar loader;
     List<Contact> allList;
+    EditText editText;
 
     Contact contact;
 
@@ -52,15 +59,27 @@ public class ContactActivity extends Fragment {
         scrollView = (NestedScrollView) view.findViewById(R.id.scrollView);
         allList = new ArrayList<>();
         taskListAll = (NoScrollListView) view.findViewById(R.id.taskListToday);
+        view.findViewById(R.id.searchFriend).setOnClickListener(this);
+        editText = view.findViewById(R.id.editMsgContact);
 
+        XMPPSession session = FactoryBuilder.getInstance(false).getSession();
+        Map<String,String> friends = session.getAllFriends();
+        for (String key:friends.keySet()) {
+            String id = key.substring(0,key.indexOf("@"));
+            if (!id.equals(FileSystemFactory.userId)) {
+                Contact contact = new Contact();
+                contact.setName(id);
+                allList.add(contact);
+            }
+        }
         //测试数据
-        Contact con1 = new Contact();
-        con1.setName("Mali");
-        con1.setPhoneNum("123456789");
-        Contact conl2=new Contact();
-        conl2.setName("Mali2");
-        allList.add(con1);
-        allList.add(conl2);
+//        Contact con1 = new Contact();
+//        con1.setName("Mali");
+//        con1.setPhoneNum("123456789");
+//        Contact conl2=new Contact();
+//        conl2.setName("Mali2");
+//        allList.add(con1);
+//        allList.add(conl2);
 
         return view;
     }
@@ -92,5 +111,16 @@ public class ContactActivity extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.searchFriend:
+                String text = editText.getText().toString();
+                XMPPSession session = FactoryBuilder.getInstance(false).getSession();
+                session.addFriend(text,text);
+                break;
+        }
     }
 }
