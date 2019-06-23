@@ -10,7 +10,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_msg_conta"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@color/colorPrimary">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -51,7 +51,8 @@
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"/>
+        android:layout_weight="9"
+        android:paddingTop="60dp"/>
 
 
     <RelativeLayout
