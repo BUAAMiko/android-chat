@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -20,6 +21,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import buaa.jj.designpattern.Iterator.Iterator;
+import buaa.jj.designpattern.filesystem.FileSystem;
+import shisong.FactoryBuilder;
 
 public class FileActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,6 +38,12 @@ public class FileActivity extends AppCompatActivity implements View.OnClickListe
     NestedScrollView scrollView;
     ProgressBar loader;
     List<File> allList;
+
+    EditText editText;
+    Iterator iterator;
+    FileSystem root = FactoryBuilder.getInstance(false).getFileSystemFactory().getFileSystem(false);
+    FileSystem fileSystem;
+    static String chatId;
 
     File file;
 
@@ -49,7 +60,7 @@ public class FileActivity extends AppCompatActivity implements View.OnClickListe
         scrollView = (NestedScrollView) findViewById(R.id.scrollView);
         allList = new ArrayList<>();
         taskListAll = (NoScrollListView) findViewById(R.id.taskListToday);
-        findViewById(R.id.editsearchFile).setOnClickListener(this);
+        editText = findViewById(R.id.editsearchFile);
         findViewById(R.id.searchFile).setOnClickListener(this);
         findViewById(R.id.picture).setOnClickListener(this);
         findViewById(R.id.video).setOnClickListener(this);
@@ -80,6 +91,12 @@ public class FileActivity extends AppCompatActivity implements View.OnClickListe
         populateData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        allList.clear();
+    }
+
     public void loadListView(ListView listView, final List<File> taskList) {
         ListTask3Adapter adapter = new ListTask3Adapter(FileActivity.this, taskList);
         listView.setAdapter(adapter);
@@ -88,12 +105,23 @@ public class FileActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        String type = null;
         switch (v.getId()){
-            case R.id.editsearchFile:
+            case R.id.searchFile:
+                String text = editText.getText().toString();
 
                 break;
-            case R.id.searchFile:
-
+            case R.id.picture:
+                type = "Image";
+                break;
+            case R.id.video:
+                type = "Viedo";
+                break;
+            case R.id.document:
+                type = "Document";
+                break;
+            case R.id.others:
+                type = "Other";
                 break;
         }
     }
