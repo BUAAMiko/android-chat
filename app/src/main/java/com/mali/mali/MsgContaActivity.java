@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 import java.io.IOException;
@@ -26,9 +27,10 @@ import Observers.InfoViewObserver;
 public class MsgContaActivity extends AppCompatActivity {
 
     private RecyclerView rv;
+    private TextView titleView;
     private EditText et;
+    private String Contactname;
     private Button btn,btn2,btn3;
-    private Socket socket;
     private ArrayList<MsgConBean> list;
     private MsgContaAdapter adapter;
 
@@ -36,7 +38,10 @@ public class MsgContaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_msg_conta);
-
+        Intent intent=getIntent();
+        Contactname=intent.getStringExtra("ContactIname");
+        titleView=findViewById(R.id.TitleofMsgConta);
+        titleView.setText(Contactname);
         rv = (RecyclerView) findViewById(R.id.rv);
         et = (EditText) findViewById(R.id.editMsgContact);
         btn = (Button) findViewById(R.id.buttonSendMsg);
@@ -51,7 +56,7 @@ public class MsgContaActivity extends AppCompatActivity {
         Message message = Message.obtain();
         message.what = 1;
         message.obj = data;
-        handler.sendMessage(message);
+        //handler.sendMessage(message);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

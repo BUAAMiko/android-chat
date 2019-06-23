@@ -97,7 +97,10 @@ public class ChatActivity extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(),MsgContaActivity.class));
+                Chat chat=taskList.get(position);
+                Intent intent=new Intent(getActivity(), MsgContaActivity.class);
+                intent.putExtra("ContactIname",chat.getName());
+                startActivity(intent);
             }
         });
     }
