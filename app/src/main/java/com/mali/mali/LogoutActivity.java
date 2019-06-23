@@ -1,11 +1,14 @@
 package com.mali.mali;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import shisong.FactoryBuilder;
 
 public class LogoutActivity extends Fragment implements View.OnClickListener{
 
@@ -26,15 +29,13 @@ public class LogoutActivity extends Fragment implements View.OnClickListener{
         return view;
     }
 
-    private void userLogout(){
-
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.buttonLogout:
-                userLogout();
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
         }
     }
