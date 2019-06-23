@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import org.jivesoftware.smackx.iqregister.AccountManager;
+
+import buaa.jj.designpattern.factory.FileSystemFactory;
+import communicate.XMPPSession;
+import shisong.FactoryBuilder;
+
 public class SignupActivity extends AppCompatActivity  implements View.OnClickListener{
 
     EditText editTextEmail, editTextPassword;
@@ -30,47 +36,57 @@ public class SignupActivity extends AppCompatActivity  implements View.OnClickLi
         startActivity(new Intent(this, MainActivity.class));
     }
 
-    private void userLogin() {
+    private boolean userLogin() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
         if(email.isEmpty()) {
             editTextEmail.setError("Email is required");
             editTextEmail.requestFocus();
-            return;
+            return false;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError("Email is invalid");
-            editTextEmail.requestFocus();
-            return;
-        }
+//        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+//            editTextEmail.setError("Email is invalid");
+//            editTextEmail.requestFocus();
+//            return false;
+//        }
 
         if(password.isEmpty()) {
             editTextPassword.setError("Password is required");
             editTextPassword.requestFocus();
-            return;
+            return false;
         }
 
         if(password.length() < 6) {
             editTextPassword.setError("Password length should be at least 6 characters");
             editTextPassword.requestFocus();
-            return;
+            return false;
         }
 
         progressBar.setVisibility(View.VISIBLE);
+        AccountManager.sensitiveOperationOverInsecureConnectionDefault(true);
+        XMPPSession session = FactoryBuilder.getInstance(false).getSession();
+        if (session.register(email,password)) {
+            if (session.login(email,password)) {
+                FileSystemFactory.userId = email;
+                return true;
+            }
+        }
+        progressBar.setVisibility(View.INVISIBLE);
+        return false;
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.textViewSignup:
-                finish();
-                //startActivity(new Intent(this, SignUpActivity.class));
-                break;
-
-            case R.id.buttonLogin:
-                userLogin();
+            case R.id.buttonLogin2:
+                boolean state = userLogin();
+                if (state) {
+                    Intent intent = new Intent(this, MenuActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
                 break;
         }
     }

@@ -28,11 +28,12 @@ public class FactoryBuilder {
     public XMPPSession getSession() {
         return session;
     }
+
     public FileSystemFactory getFileSystemFactory() {
         return fileSystemFactory;
     }
 
-    private void initSession() {
+    public void initSession() {
         XMPPSessionFactory factory = new XMPPSessionFactoryBuilder().build();
         session = factory.openSession();
         ConstantConfig.FILE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/chat/";
