@@ -85,6 +85,12 @@
                     android:orientation="horizontal"
                     android:weightSum="1">
 
+                    <Button
+                        android:id="@+id/withdrewBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/withdrew" />
+
                     <EditText
                         android:id="@+id/editMsgContact"
                         android:layout_width="wrap_content"
