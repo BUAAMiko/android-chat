@@ -10,11 +10,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ListTask3Adapter extends ArrayAdapter<File> {
-    private Activity activity;
-    private List<File> taskList;
+import buaa.jj.designpattern.filesystem.FileSystem;
 
-    public ListTask3Adapter(Activity a, List<File> taskList) {
+public class ListTask3Adapter extends ArrayAdapter<FileSystem> {
+    private Activity activity;
+    private List<FileSystem> taskList;
+
+    public ListTask3Adapter(Activity a, List<FileSystem> taskList) {
         super(a, R.layout.file_list, taskList);
         this.activity = a;
         this.taskList=taskList;
@@ -37,7 +39,7 @@ public class ListTask3Adapter extends ArrayAdapter<File> {
         //holder.task_time.setId(position);
         holder.share_task.setId(position);
 
-        final File task = taskList.get(position);
+        final FileSystem task = taskList.get(position);
 
         try{
             holder.task_name.setText(task.getName());

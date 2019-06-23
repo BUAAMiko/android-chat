@@ -51,9 +51,10 @@
                             android:background="@android:color/background_light"
                             android:ems="10"
                             android:fontFamily="sans-serif"
+                            android:textColor="@android:color/black"
                             android:inputType="text"
-                            android:paddingLeft="30dp"
-                            android:paddingBottom="10dp" />
+                            android:paddingLeft="5dp"
+                            android:paddingBottom="3dp" />
 
                         <Button
                             android:id="@+id/searchFile"

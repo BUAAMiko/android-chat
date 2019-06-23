@@ -79,8 +79,10 @@ public class MsgContaActivity extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.getId()==R.id.msgContaFile)
-                    startActivity(new Intent(getApplication(),FileActivity.class));
+                if(v.getId()==R.id.msgContaFile) {
+                    FileActivity.chatId = Contactname;
+                    startActivity(new Intent(getApplication(), FileActivity.class));
+                }
             }
         });
 
