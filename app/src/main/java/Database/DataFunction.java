@@ -6,7 +6,7 @@ import java.util.*;
 
 public class DataFunction {
 
-    private static String UserId;
+    public static String UserId;
     private static SimpleDateFormat sdf =   new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
 
     /**

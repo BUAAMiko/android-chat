@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import Database.DataFunction;
 import Observers.InfoViewObserver;
 
 public class MsgContaActivity extends AppCompatActivity {
@@ -53,6 +54,7 @@ public class MsgContaActivity extends AppCompatActivity {
     private Socket socket;
     private ArrayList<MsgConBean> list;
     private MsgContaAdapter adapter;
+    public Handler handler = new MyHandler();
     //------------声明withdrewModule---------------
     private WithdrewModule withdrewModule;
 
@@ -61,7 +63,7 @@ public class MsgContaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_msg_conta);
         Intent intent=getIntent();
-        Contactname=intent.getStringExtra("ContactIname");
+        Contactname=intent.getStringExtra("Contactname");
         titleView=findViewById(R.id.TitleofMsgConta);
         titleView.setText(Contactname);
         rv = (RecyclerView) findViewById(R.id.rv);
@@ -75,18 +77,12 @@ public class MsgContaActivity extends AppCompatActivity {
         //------------获取withdrewModule实例---------------
         withdrewModule = WithdrewModule.getInstance();
 
-        final Handler handler = new MyHandler();
-
-        String data= "测试消息"+(new Date().toString());
-        Message message = Message.obtain();
-        message.what = 1;
-        message.obj = data;
-        //handler.sendMessage(message);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String data = et.getText().toString() + (new Date().toString());
+                DataFunction.addSendInfo(Contactname,et.getText().toString());
                 Message message = Message.obtain();
                 message.what = 1;
                 message.obj = data;
@@ -172,15 +168,43 @@ public class MsgContaActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        List<Map> allinfo=DataFunction.allContactInfo(Contactname);
+        for (Map<String,String> map: allinfo){
+            if (map.get("dir").equals("0")){
+                MsgConBean bean = new MsgConBean(map.get("content"), 1,map.get("time") , "我：");
+                list.add(bean);
+            }
+            if (map.get("dir").equals("1")){
+                MsgConBean bean = new MsgConBean(map.get("content"), 2,map.get("time") ,Contactname);
+                list.add(bean);
+            }
+        }
+        adapter.setData(list);
+        rv.setAdapter(adapter);
+        LinearLayoutManager manager = new LinearLayoutManager(MsgContaActivity.this, LinearLayoutManager.VERTICAL, false);
+        rv.setLayoutManager(manager);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        InfoViewObserver.setIsChat(true);
+        InfoViewObserver.getInstance().setIsChat(true);
+        InfoViewObserver.getInstance().setContactID(Contactname);
+        InfoViewObserver.getInstance().setHandler(handler);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        InfoViewObserver.setIsChat(false);
+        InfoViewObserver.getInstance().setIsChat(false);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        list.clear();
     }
 
     //----------撤回历史纪录弹窗------------
@@ -225,7 +249,6 @@ public class MsgContaActivity extends AppCompatActivity {
     private class MyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            super.handleMessage(msg);
             if (msg.what == 1) {
                 SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
                 MsgConBean bean = new MsgConBean(msg.obj.toString(), 1, df.format(new Date()), "我：");
@@ -246,7 +269,8 @@ public class MsgContaActivity extends AppCompatActivity {
                 } else {
                     //是一条普通消息
                     SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-                    MsgConBean bean = new MsgConBean(msg.obj.toString(), 2, df.format(new Date()), "好友：");
+                    Map<String,String> map= (Map<String, String>) msg.obj;
+                    MsgConBean bean = new MsgConBean(map.get("msg"), 2, df.format(new Date()), map.get("uname"));
                     list.add(bean);
                 }
             }

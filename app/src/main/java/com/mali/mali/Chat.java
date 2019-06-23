@@ -5,8 +5,7 @@ import java.io.Serializable;
 public class Chat implements Serializable {
     private String id;
     private String name;
-    private String phoneNum;
-    private String Email;
+    private  String LastMsg;
 
     public Chat(){}
 
@@ -17,9 +16,8 @@ public class Chat implements Serializable {
     public String getName(){
         return name;
     }
-    public String getPhoneNum(){
-        return phoneNum;
-    }
+
+    public  String getLastMsg(){return LastMsg;}
 
     public void setId(String id) {
         this.id = id;
@@ -29,12 +27,8 @@ public class Chat implements Serializable {
         this.name = name;
     }
 
-    public void setPhoneNum(String phoneNum){
-        this.phoneNum=phoneNum;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
+    public void setLastMsg(String lastMsg) {
+        LastMsg = lastMsg;
     }
 }
 

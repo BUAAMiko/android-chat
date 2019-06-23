@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import org.litepal.LitePal;
+
+import Database.DataFunction;
 import buaa.jj.designpattern.factory.FileSystemFactory;
 import communicate.XMPPSession;
 import shisong.FactoryBuilder;
@@ -84,6 +87,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 boolean state = userLogin();
                 if (state) {
                     FileSystemFactory.userId = editTextEmail.getText().toString().trim();
+                    DataFunction.UserId=FileSystemFactory.userId;
+                    LitePal.getDatabase();
                     Intent intent = new Intent(this, MenuActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
