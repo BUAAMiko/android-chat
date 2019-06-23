@@ -80,13 +80,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 finish();
                 startActivity(new Intent(this, SignupActivity.class));
                 break;
-
             case R.id.buttonLogin:
                 boolean state = userLogin();
                 if (state) {
                     FileSystemFactory.userId = editTextEmail.getText().toString().trim();
                     Intent intent = new Intent(this, MenuActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
                 break;

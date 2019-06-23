@@ -84,7 +84,7 @@ public class SignupActivity extends AppCompatActivity  implements View.OnClickLi
                 boolean state = userLogin();
                 if (state) {
                     Intent intent = new Intent(this, MenuActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
                 break;
