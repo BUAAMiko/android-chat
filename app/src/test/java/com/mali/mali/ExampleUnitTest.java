@@ -2,6 +2,9 @@ package com.mali.mali;
 
 import org.junit.Test;
 
+import buaa.jj.designpattern.factory.FileSystemFactory;
+import shisong.FactoryBuilder;
+
 import static org.junit.Assert.*;
 
 /**
@@ -12,6 +15,6 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+        FactoryBuilder.getInstance(true).initFileSystem();
     }
 }

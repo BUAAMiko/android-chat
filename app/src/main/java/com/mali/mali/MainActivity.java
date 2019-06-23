@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import buaa.jj.designpattern.factory.FileSystemFactory;
 import communicate.XMPPSession;
 import communicate.XMPPSessionFactory;
 import communicate.XMPPSessionFactoryBuilder;
@@ -16,10 +17,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         findViewById(R.id.textViewSignup).setOnClickListener(this);
         findViewById(R.id.textViewLogin).setOnClickListener(this);
         FactoryBuilder.getInstance(true);
+        FileSystemFactory.savePath = getApplicationContext().getExternalCacheDir().getAbsolutePath();
     }
 
     @Override
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.textViewSignup:
                 startActivity(new Intent(this, SignupActivity.class));
                 break;
-
             case R.id.textViewLogin:
                 startActivity(new Intent(this, Login.class));
                 break;

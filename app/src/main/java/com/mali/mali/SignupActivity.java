@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 
 import org.jivesoftware.smackx.iqregister.AccountManager;
 
-//import buaa.jj.designpattern.factory.FileSystemFactory;
+import buaa.jj.designpattern.factory.FileSystemFactory;
 import communicate.XMPPSession;
 import shisong.FactoryBuilder;
 
@@ -69,10 +69,11 @@ public class SignupActivity extends AppCompatActivity  implements View.OnClickLi
         XMPPSession session = FactoryBuilder.getInstance(false).getSession();
         if (session.register(email,password)) {
             if (session.login(email,password)) {
-//                FileSystemFactory.userId = email;
+                FileSystemFactory.userId = email;
                 return true;
             }
         }
+        progressBar.setVisibility(View.INVISIBLE);
         return false;
     }
 
@@ -82,8 +83,9 @@ public class SignupActivity extends AppCompatActivity  implements View.OnClickLi
             case R.id.buttonLogin2:
                 boolean state = userLogin();
                 if (state) {
-                    finish();
-                    startActivity(new Intent(this, MenuActivity.class));
+                    Intent intent = new Intent(this, MenuActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
                 break;
         }

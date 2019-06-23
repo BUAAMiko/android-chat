@@ -50,7 +50,7 @@ public class MenuActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//        FactoryBuilder.getInstance(false).initFileSystem();
+        FactoryBuilder.getInstance(false).initFileSystem();
     }
 
 }
