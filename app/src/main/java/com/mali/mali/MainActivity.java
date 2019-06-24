@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.textViewSignup).setOnClickListener(this);
         findViewById(R.id.textViewLogin).setOnClickListener(this);
         FactoryBuilder.getInstance(true);
-        //FileSystemFactory.savePath= getApplicationContext().getExternalCacheDir().getAbsolutePath();
+        FileSystemFactory.savePath= getApplicationContext().getExternalCacheDir().getAbsolutePath();
         checkPermission();
     }
 

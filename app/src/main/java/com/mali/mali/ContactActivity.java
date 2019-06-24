@@ -107,7 +107,7 @@ public class ContactActivity extends Fragment implements View.OnClickListener {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Contact contact=taskList.get(position);
                 Intent intent=new Intent(getActivity(), MsgContaActivity.class);
-                intent.putExtra("ContactIname",contact.getName());
+                intent.putExtra("Contactname",contact.getName());
                 startActivity(intent);
             }
         });

@@ -86,5 +86,9 @@ public class DataFunction {
         }
         return result;
     }
+
+    public static void deleteWithdraw(String ContactID, String Content){
+        DataSupport.deleteAll(ChatHistory.class,"UserID=? and ContactId=? and content=?",UserId,ContactID,Content);
+    }
 }
 

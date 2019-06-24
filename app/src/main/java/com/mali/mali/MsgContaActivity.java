@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -43,6 +44,8 @@ import java.util.Map;
 
 import Database.DataFunction;
 import Observers.InfoViewObserver;
+import communicate.XMPPSession;
+import shisong.FactoryBuilder;
 
 public class MsgContaActivity extends AppCompatActivity {
 
@@ -73,19 +76,33 @@ public class MsgContaActivity extends AppCompatActivity {
         btn3=findViewById(R.id.msgContaFile);
         withdrewBtn = findViewById(R.id.withdrewBtn);
         list = new ArrayList<>();
+        LinearLayoutManager manager = new LinearLayoutManager(MsgContaActivity.this, LinearLayoutManager.VERTICAL, false);
+        rv.setLayoutManager(manager);
         adapter = new MsgContaAdapter(this);
+        adapter.setData(list);
+        rv.setAdapter(adapter);
+        rv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                btn3.dispatchTouchEvent(event);
+                return false;
+            }
+        });
         //------------获取withdrewModule实例---------------
         withdrewModule = WithdrewModule.getInstance();
+        XMPPSession session=FactoryBuilder.getInstance(false).getSession();
+        session.getSingleChat(Contactname);
 
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String data = et.getText().toString() + (new Date().toString());
+                FactoryBuilder.getInstance(false).getSession().sendMessage(Contactname,et.getText().toString());
                 DataFunction.addSendInfo(Contactname,et.getText().toString());
                 Message message = Message.obtain();
                 message.what = 1;
-                message.obj = data;
+                message.obj = et.getText().toString();
                 handler.sendMessage(message);
                 //-------------设置发送后清空输入框---------------
                 ((EditText)findViewById(R.id.editMsgContact)).setText("");
@@ -95,12 +112,6 @@ public class MsgContaActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 这里是对方撤回的逻辑，目前采用模拟
-                String withdrew = "WITHDREW"+((EditText)findViewById(R.id.editMsgContact)).getText().toString();
-                Message m = Message.obtain();
-                m.what = 2;
-                m.obj = withdrew;
-                handler.sendMessage(m);
             }
         });
 
@@ -143,7 +154,7 @@ public class MsgContaActivity extends AppCompatActivity {
                         String msg = list.get(position).getData();
                         list.remove(position);
                         adapter.notifyDataSetChanged();
-                        // TODO 发送一条撤销消息
+                        FactoryBuilder.getInstance(false).getSession().sendMessage(Contactname,"WITHDREW"+msg);
 
                         //存储撤回消息内容到withdrewModule
                         Map message = new HashMap();
@@ -186,6 +197,7 @@ public class MsgContaActivity extends AppCompatActivity {
         LinearLayoutManager manager = new LinearLayoutManager(MsgContaActivity.this, LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(manager);
     }
+
 
     @Override
     protected void onResume() {
@@ -276,10 +288,8 @@ public class MsgContaActivity extends AppCompatActivity {
             }
 
             // 向适配器set数据
-            adapter.setData(list);
-            rv.setAdapter(adapter);
-            LinearLayoutManager manager = new LinearLayoutManager(MsgContaActivity.this, LinearLayoutManager.VERTICAL, false);
-            rv.setLayoutManager(manager);
+            adapter.notifyItemInserted(list.size()-1);
+            rv.scrollToPosition(list.size()-1);
         }
     }
 }

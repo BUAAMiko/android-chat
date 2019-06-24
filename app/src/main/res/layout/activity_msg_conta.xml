@@ -99,7 +99,6 @@
                         android:background="@android:color/background_light"
                         android:ems="10"
                         android:fontFamily="sans-serif"
-                        android:hint="123"
                         android:inputType="text"
                         android:paddingLeft="5dp"
                         android:paddingBottom="3dp" />
