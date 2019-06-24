@@ -27,7 +27,7 @@ public class ListTask2Adapter extends ArrayAdapter<Chat> {
             convertView = LayoutInflater.from(activity).inflate(
                     R.layout.chat_list, parent, false);
             holder.task_name = (TextView) convertView.findViewById(R.id.task_name2);
-            holder.task_time = (TextView) convertView.findViewById(R.id.task_time);
+            holder.task_time = (TextView) convertView.findViewById(R.id.last_msg);
             holder.share_task = (ImageView) convertView.findViewById(R.id.task_headImg2);
             convertView.setTag(holder);
         } else {
@@ -35,14 +35,14 @@ public class ListTask2Adapter extends ArrayAdapter<Chat> {
         }
 
         holder.task_name.setId(position);
-        //holder.task_time.setId(position);
+        holder.task_time.setId(position);
         holder.share_task.setId(position);
 
         final Chat task = taskList.get(position);
 
         try{
             holder.task_name.setText(task.getName());
-            //holder.task_time.setText(task.getPhoneNum());
+            holder.task_time.setText(task.getLastMsg());
 
         }catch(Exception e) {}
         return convertView;
