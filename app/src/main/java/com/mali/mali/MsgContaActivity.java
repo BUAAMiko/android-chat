@@ -171,7 +171,7 @@ public class MsgContaActivity extends AppCompatActivity {
                         list.remove(position);
                         adapter.notifyDataSetChanged();
                         FactoryBuilder.getInstance(false).getSession().sendMessage(Contactname,"WITHDREW"+msg);
-
+                        DataFunction.deleteWithdraw(Contactname,msg);
                         //存储撤回消息内容到withdrewModule
                         Map message = new HashMap();
                         message.put("msg", msg);    // msg表示内容
@@ -409,14 +409,17 @@ public class MsgContaActivity extends AppCompatActivity {
                 list.add(bean);
             } else if(msg.what == 2) {
                 //---------------对方消息----------------
-                if(msg.obj.toString().substring(0,8).equals("WITHDREW")) {
+                String mess= ((Map<String,String>)msg.obj).get("msg");
+                if(mess.length() >= 8 && mess.substring(0,8).equals("WITHDREW")) {
                     //是一条撤回消息
                     //TODO 需要接收到消息后设置MsgBean发送到此，未完成（删数据库于接收到消息时完成）
                     ListIterator<MsgConBean> it = list.listIterator(list.size());
                     while (it.hasPrevious()) {
                         MsgConBean item = it.previous();
-                        if(item.getData().equals(msg.obj.toString().substring(8))) {
+                        if(item.getData().equals(mess.substring(8))) {
                             it.remove();
+                            adapter.notifyItemRemoved(it.nextIndex() -1);
+                            adapter.notifyItemRangeChanged(it.nextIndex() - 1,list.size() - 1);
                             break;
                         }
                     }
@@ -426,11 +429,11 @@ public class MsgContaActivity extends AppCompatActivity {
                     Map<String,String> map= (Map<String, String>) msg.obj;
                     MsgConBean bean = new MsgConBean(map.get("msg"), 2, df.format(new Date()), map.get("uname"));
                     list.add(bean);
+                    adapter.notifyItemInserted(list.size()-1);
                 }
             }
 
             // 向适配器set数据
-            adapter.notifyItemInserted(list.size()-1);
             rv.scrollToPosition(list.size()-1);
         }
     }

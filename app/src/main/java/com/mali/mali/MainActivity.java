@@ -4,10 +4,14 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import java.io.File;
 
 import buaa.jj.designpattern.factory.FileSystemFactory;
 import communicate.XMPPSession;
@@ -16,6 +20,10 @@ import communicate.XMPPSessionFactoryBuilder;
 import shisong.FactoryBuilder;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+    final String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FactoryBuilder.getInstance(true);
         FileSystemFactory.savePath= getApplicationContext().getExternalCacheDir().getAbsolutePath();
         checkPermission();
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/chat/");
+        if (!file.isDirectory()) {
+            System.out.println("mkdir:" + file.mkdirs());
+        }
+        System.out.println("hasdir:" + file.isDirectory());
     }
 
     @Override
@@ -43,9 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void checkPermission() {
         // Storage Permissions
         final int REQUEST_EXTERNAL_STORAGE = 1;
-        String[] PERMISSIONS_STORAGE = {
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
 
         try {
             //检测是否有写的权限
@@ -58,7 +69,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            System.out.println("permission ok");
+            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/chat/");
+            if (!file.isDirectory())
+                System.out.println("mkdir:" + file.mkdirs());
+            System.out.println("hasdir:" + file.isDirectory());
+        }
     }
 }

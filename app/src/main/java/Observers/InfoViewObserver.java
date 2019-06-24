@@ -47,6 +47,7 @@ public class InfoViewObserver implements Observer {
     public void Updata(Map map) {
         String contactname= ((String) map.get("uname"));
         contactname = contactname.substring(0,contactname.indexOf("@"));
+        map.put("uname",contactname);
         if (isChat && contactname.equals(contactID)){
             Message message=new Message();
             message.what=2;

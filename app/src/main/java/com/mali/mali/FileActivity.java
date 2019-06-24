@@ -82,6 +82,14 @@ public class FileActivity extends AppCompatActivity implements View.OnClickListe
             }
             fileSystem = root.getFile(new LinkedList<String>(),chatId);
         }
+        String text = "";
+        iterator = fileSystem.getIterator(null);
+        iterator.next();
+        while (iterator.hasNext()) {
+            FileSystem tmp = (FileSystem) iterator.next();
+            allList.add(tmp);
+        }
+        taskListAll.setAdapter(adapter);
         //测试数据
 //        File fle = new File();
 //        fle.setName("History123");
@@ -115,6 +123,7 @@ public class FileActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 buaa.jj.designpattern.filesystem.File file = (buaa.jj.designpattern.filesystem.File) allList.get(position);
                 Intent intent = file.open(getApplicationContext(),"com.mali.mali.fileProvider");
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 getApplicationContext().startActivity(intent);
             }
         });
@@ -123,16 +132,19 @@ public class FileActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String type = null;
+        allList.clear();
         switch (v.getId()){
             case R.id.searchFile:
                 String text = editText.getText().toString();
                 iterator = fileSystem.getIterator(type);
+                iterator.next();
                 while (iterator.hasNext()) {
                     FileSystem tmp = (FileSystem) iterator.next();
-                    if (tmp.getName().contains(text)) {
+                    if (text.equals("") || tmp.getName().contains(text)) {
                         allList.add(tmp);
                     }
                 }
+                taskListAll.setAdapter(adapter);
                 return;
             case R.id.picture:
                 type = "Image";

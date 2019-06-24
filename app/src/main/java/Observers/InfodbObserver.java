@@ -22,7 +22,7 @@ public class InfodbObserver implements Observer {
     @Override
     public void Updata(Map map) {
         String id = (String) map.get("uname");
-        id = id.substring(0,id.indexOf("@"));
+//        id = id.substring(0,id.indexOf("@"));
         String msg=(String) map.get("msg");
         if (msg.length()>8&&msg.substring(0,8).equals("WITHDREW"))
         {
