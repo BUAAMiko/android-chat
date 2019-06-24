@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.example.dell.jsltevent.ObserverService.Event.FileEvent;
 import com.example.dell.jsltevent.ObserverService.Event.InfoEvent;
 
 import org.litepal.LitePal;
 
 import Database.DataFunction;
+import Observers.FileObserver;
 import Observers.InfoViewObserver;
 import Observers.InfodbObserver;
 import buaa.jj.designpattern.factory.FileSystemFactory;
@@ -95,6 +97,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     LitePal.getDatabase();
                     InfoEvent.getInstance().attachObserver(InfoViewObserver.getInstance());
                     InfoEvent.getInstance().attachObserver(InfodbObserver.getInstance());
+                    FileEvent.getInstance().attachObserver(FileObserver.getInstance());
                     Intent intent = new Intent(this, MenuActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);

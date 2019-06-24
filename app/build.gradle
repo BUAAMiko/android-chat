@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.mali.mali"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -51,7 +51,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(path: ':momento-release')
-    implementation project(path: ':fileSystem-debug')
     implementation project(path: ':wzcsmack')
     implementation 'org.litepal.android:core:1.4.1'
     //    implementation 'org.igniterealtime.smack:smack-android-extensions:4.1.8'
@@ -66,4 +65,5 @@ dependencies {
     // optional features
     implementation 'org.igniterealtime.smack:smack-android-extensions:4.1.8'
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation project(path: ':fileSystem-debug')
 }

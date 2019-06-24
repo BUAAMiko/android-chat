@@ -47,6 +47,7 @@ public class FileActivity extends AppCompatActivity implements View.OnClickListe
     FileSystem root = FactoryBuilder.getInstance(false).getFileSystemFactory().getFileSystem(false);
     FileSystem fileSystem;
     static String chatId;
+    ListTask3Adapter adapter;
 
     File file;
 
@@ -106,14 +107,14 @@ public class FileActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void loadListView(ListView listView, final List<FileSystem> taskList) {
-        ListTask3Adapter adapter = new ListTask3Adapter(FileActivity.this, taskList);
+        adapter = new ListTask3Adapter(FileActivity.this, taskList);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 buaa.jj.designpattern.filesystem.File file = (buaa.jj.designpattern.filesystem.File) allList.get(position);
-                Intent intent = file.open();
+                Intent intent = file.open(getApplicationContext(),"com.mali.mali.fileProvider");
                 getApplicationContext().startActivity(intent);
             }
         });
@@ -147,10 +148,12 @@ public class FileActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         iterator = fileSystem.getIterator(type);
+        iterator.next();
         while (iterator.hasNext()) {
             FileSystem tmp = (FileSystem) iterator.next();
             allList.add(tmp);
         }
+        taskListAll.setAdapter(adapter);
     }
 
 
