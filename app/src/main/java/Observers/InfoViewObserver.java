@@ -3,10 +3,10 @@ package Observers;
 import android.os.Handler;
 import android.os.Message;
 
+import com.example.dell.jsltevent.ObserverService.Observer.Observer;
+
 import java.util.Map;
 
-
-import Event.Observer;
 
 public class InfoViewObserver implements Observer {
 

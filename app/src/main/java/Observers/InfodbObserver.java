@@ -1,9 +1,10 @@
 package Observers;
 
+import com.example.dell.jsltevent.ObserverService.Observer.Observer;
+
 import java.util.Map;
 
 import Database.DataFunction;
-import Event.Observer;
 
 public class InfodbObserver implements Observer {
 
