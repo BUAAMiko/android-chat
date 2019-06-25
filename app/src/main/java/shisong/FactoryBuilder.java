@@ -20,6 +20,9 @@ public class FactoryBuilder {
 
     public static FactoryBuilder getInstance(Boolean state) {
         if (factoryBuilder == null || state) {
+            if (factoryBuilder != null) {
+                factoryBuilder.session.logout();
+            }
             factoryBuilder = new FactoryBuilder();
         }
         return factoryBuilder;

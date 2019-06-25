@@ -73,7 +73,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
 
         progressBar.setVisibility(View.VISIBLE);
-        XMPPSession session = FactoryBuilder.getInstance(false).getSession();
+        XMPPSession session = FactoryBuilder.getInstance(true).getSession();
         if (session.login(email,password)) {
             FileSystemFactory.userId = email;
             return true;

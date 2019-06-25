@@ -66,7 +66,7 @@ public class SignupActivity extends AppCompatActivity  implements View.OnClickLi
 
         progressBar.setVisibility(View.VISIBLE);
         AccountManager.sensitiveOperationOverInsecureConnectionDefault(true);
-        XMPPSession session = FactoryBuilder.getInstance(false).getSession();
+        XMPPSession session = FactoryBuilder.getInstance(true).getSession();
         if (session.register(email,password)) {
             if (session.login(email,password)) {
                 FileSystemFactory.userId = email;
